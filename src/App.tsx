@@ -3,7 +3,6 @@ import Items from "./Components/Items";
 import ItemsFilter from "./Components/ItemsFilter";
 import ExpenseForm from "./Components/ExpenseForm";
 
-export const categories = ["Fruits", "Vegetables", "Groceries"];
 function App() {
   const [item, setItem] = useState([
     { id: 1, description: "Apple", category: "fruits", amount: 20 },
@@ -20,7 +19,11 @@ function App() {
   return (
     <div>
       <div>
-        <ExpenseForm />
+        <ExpenseForm
+          onSubmit={(data) =>
+            setItem([...item, { ...data, id: item.length + 1 }])
+          }
+        />
       </div>
       <ItemsFilter
         onSelected={(selectedCategory) => setCategory(selectedCategory)}
