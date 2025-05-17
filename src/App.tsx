@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Items from "./Items";
+import Items from "./Components/Items";
+import ItemsFilter from "./Components/ItemsFilter";
 
 function App() {
-  const list = ["Fruits", "Vegetables", "Groceries"];
   const [item, setItem] = useState([
     { id: 1, description: "Apple", category: "fruits", amount: 20 },
     { id: 2, description: "Brinjal", category: "vegetables", amount: 10 },
@@ -11,10 +11,17 @@ function App() {
     { id: 5, description: "Wheat flour", category: "groceries", amount: 50 },
   ]);
 
+  const [selectedCategory, setCategory] = useState("");
+  const visibleItems = selectedCategory
+    ? item.filter((i) => i.category === selectedCategory)
+    : item;
   return (
     <>
+      <ItemsFilter
+        onSelected={(selectedCategory) => setCategory(selectedCategory)}
+      />
       <Items
-        expenses={item}
+        expenses={visibleItems}
         onDelete={(id) => setItem(item.filter((e) => e.id !== id))}
       />
     </>
