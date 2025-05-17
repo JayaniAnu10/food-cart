@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Items from "./Components/Items";
 import ItemsFilter from "./Components/ItemsFilter";
+import ExpenseForm from "./Components/ExpenseForm";
 
+export const categories = ["Fruits", "Vegetables", "Groceries"];
 function App() {
   const [item, setItem] = useState([
     { id: 1, description: "Apple", category: "fruits", amount: 20 },
@@ -16,7 +18,10 @@ function App() {
     ? item.filter((i) => i.category === selectedCategory)
     : item;
   return (
-    <>
+    <div>
+      <div>
+        <ExpenseForm />
+      </div>
       <ItemsFilter
         onSelected={(selectedCategory) => setCategory(selectedCategory)}
       />
@@ -24,7 +29,7 @@ function App() {
         expenses={visibleItems}
         onDelete={(id) => setItem(item.filter((e) => e.id !== id))}
       />
-    </>
+    </div>
   );
 }
 
